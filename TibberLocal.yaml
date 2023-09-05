@@ -1,0 +1,55 @@
+# Partial config with only the necessary content
+
+esphome:
+  name: TibberLocal
+  includes:
+    - TibberLocal.hpp
+
+logger:
+  baud_rate: 0
+
+ota:
+
+api:
+
+http_request:
+
+custom_component:
+  - lambda: |-
+      return {new TibberLocal(1000, id(uart_bus), "http://tibber_bridge/data.json?node_id=1", "admin", "XXXX-XXXX")};
+
+uart:
+  id: uart_bus
+  rx_pin: GPIO3
+  tx_pin: GPIO1
+  baud_rate: 9600
+  data_bits: 8
+  parity: NONE
+  stop_bits: 1
+
+sml:
+  id: sml_id
+  uart_id: uart_bus
+
+sensor:
+  - platform: sml
+    name: "Energy"
+    sml_id: sml_id
+    server_id: "xxxxxxxxxxxxxxxxxxxx"
+    obis_code: "1-0:1.8.0"
+    unit_of_measurement: kWh
+    accuracy_decimals: 4
+    device_class: energy
+    state_class: total_increasing
+    filters:
+      - multiply: 0.0001
+
+  - platform: sml
+    name: "Power"
+    sml_id: sml_id
+    server_id: "xxxxxxxxxxxxxxxxxxxx"
+    obis_code: "1-0:16.7.0"
+    unit_of_measurement: W
+    accuracy_decimals: 0
+    device_class: power
+    state_class: measurement
