@@ -2,6 +2,8 @@
 
 Query the Tibber pulse bridge locally without the web API of Tibber.
 
+If you are looking for a solution to query the Tibber pulse bridge locally without the web API of Tibber and want to get this data into Home Assistant, there is a great solution [here](https://github.com/marq24/ha-tibber-pulse-local).
+
 ## Prerequisite
 
 Enable the web frontend of the Tibber bridge.
